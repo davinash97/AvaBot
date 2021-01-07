@@ -8,4 +8,4 @@ Can be found on telegram as [Ava](https://t.me/DAvinash97bot).
 
 [Support Group](https://t.me/avasupportgroup)
 ## IMPORTANT NOTICE:
-I don't Support Forks, So use on your own behalfs.
+I don't Support Forks, So use on your own behalves.
