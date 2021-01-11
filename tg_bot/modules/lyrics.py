@@ -22,7 +22,7 @@ def lyrics(bot, update, args):
 
 __help__ = """
 *Available commands:*\n
-*Magisk:* 
+*Lyrics:* 
 • `/lyrics`: fetches Song Lyrics for you
 try /lyrics {song name}
 """
