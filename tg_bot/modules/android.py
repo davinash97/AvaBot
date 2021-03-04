@@ -8,7 +8,7 @@ from telegram.ext import run_async
 from tg_bot import dispatcher
 
 @run_async
-def magisk(bot: Bot, update: Update):
+def magisk(bot, update):
     msg = update.effective_message
     magisk = {
         "<b>Stable</b>\n": "master/stable.json",
@@ -34,7 +34,7 @@ def ofox(bot, update, args: List[str]):
     link = 'https://api.orangefox.download/v2/device/{}/releases/'
     query = " ".join(args)
     if not query:
-        msg.reply_text("Which Country You mean?")
+        msg.reply_text("Which Device You mean?")
         return
     else:
         mainlink = link.format(query)
@@ -52,8 +52,7 @@ def ofox(bot, update, args: List[str]):
                     parse_mode=ParseMode.HTML,
                     disable_web_page_preview=True)
 
-@run_async
-def listofox(bot: Bot, update: Update):
+def listofox(bot, update):
     msg = update.effective_message
     link = 'https://api.orangefox.download/v2/device'
     getlink = get(link).json()
@@ -75,8 +74,8 @@ __help__ = """
 • `/listdevices` to check if your devices has ofox officially.
 """
 magisk_handler = CommandHandler(['magisk', 'root', 'su'], magisk)
-ofox_handler = CommandHandler(['ofox', 'fox', 'orangefox'], ofox)
-ofoxlist_handler = CommandHandler(['listofoxdevices', 'root', 'su'], listofox)
+ofox_handler = CommandHandler(['ofox', 'fox', 'orangefox'], ofox, pass_args=True)
+ofoxlist_handler = CommandHandler('listofoxdevices', listofox)
 
 dispatcher.add_handler(magisk_handler)
 dispatcher.add_handler(ofox_handler)
