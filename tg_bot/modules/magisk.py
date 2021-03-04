@@ -9,19 +9,20 @@ from tg_bot import dispatcher
 @run_async
 def magisk(bot: Bot, update: Update):
     msg = update.effective_message
-    link = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
-    magisk_dict = {
-            "*Stable*": "master/stable.json", "\n"
-            "*Beta*": "master/beta.json",
-        }.items()
-    releases = '*Latest Magisk Releases:*\n\n'
-    for magisk_type, release_url in magisk_dict:
-        data = get(link + release_url).json()
-        releases += f'{magisk_type}:\n' \
-                f'》 *Manager* - [App v{data["app"]["version"]}]({data["app"]["link"]}) \n' \
-                f'》 *Uninstaller* - [Uninstaller v{data["magisk"]["version"]}]({data["uninstaller"]["link"]}) \n'
+    magisk = {
+        "<b>Stable</b>\n": "master/stable.json",
+        "<b>Beta</b>\n": "master/beta.json",
+            }.items()
+    link = ("https://raw.githubusercontent.com/topjohnwu/magisk_files/")
+    output = "<b><u>Latest Magisk Releases:</u></b>\n"
+
+    for types, jsons in magisk:
+        json_links = get(link + jsons).json()
+        output += f"\n{types}" \
+                f"<i>App: <a href='{json_links.get('magisk').get('link')}'>{json_links.get('magisk').get('version')}</a></i> \n" \
+                f"<i>Uninstaller: <a href='{json_links.get('uninstaller').get('link')}'> Zip v{json_links.get('magisk').get('version')}</a></i> \n"
     msg.reply_text(text=releases,
-                   parse_mode=ParseMode.MARKDOWN,
+                   parse_mode=ParseMode.HTML,
                    disable_web_page_preview=True)
 
 __help__ = """
