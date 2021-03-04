@@ -1,6 +1,5 @@
 # Inspired from RaphaelGang's android.py
 # By DAvinash97
-from bs4 import BeautifulSoup
 from requests import get
 from telegram import Bot, Update, ParseMode
 from telegram.ext import Updater, CommandHandler
@@ -13,15 +12,12 @@ def magisk(bot: Bot, update: Update):
     link = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
     magisk_dict = {
             "*Stable*": "master/stable.json", "\n"
-            "*Beta*": "master/beta.json", "\n"
-            "*Canary*": "canary/canary.json",
+            "*Beta*": "master/beta.json",
         }.items()
     releases = '*Latest Magisk Releases:*\n\n'
     for magisk_type, release_url in magisk_dict:
-        canary = "https://github.com/topjohnwu/magisk_files/raw/canary/" if "Canary" in magisk_type else ""
         data = get(link + release_url).json()
         releases += f'{magisk_type}:\n' \
-                f'》 *Installer* - [Zip v{data["magisk"]["version"]}]({canary + data["magisk"]["link"]}) \n' \
                 f'》 *Manager* - [App v{data["app"]["version"]}]({canary + data["app"]["link"]}) \n' \
                 f'》 *Uninstaller* - [Uninstaller v{data["magisk"]["version"]}]({canary + data["uninstaller"]["link"]}) \n'
     msg.reply_text(text=releases,
