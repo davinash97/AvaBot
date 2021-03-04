@@ -23,7 +23,7 @@ def magisk(bot: Bot, update: Update):
         f"<i>App: <a href='{json_links.get('magisk').get('link')}'>{json_links.get('magisk').get('version')}</a></i> \n" \
         f"<i>Uninstaller: <a href='{json_links.get('uninstaller').get('link')}'> Zip v{json_links.get('magisk').get('version')}</a></i> \n"
     
-    msg.reply_text(text=releases,
+    msg.reply_text(text=output,
                    parse_mode=ParseMode.HTML,
                    disable_web_page_preview=True)
 
