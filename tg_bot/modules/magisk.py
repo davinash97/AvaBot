@@ -18,8 +18,8 @@ def magisk(bot: Bot, update: Update):
     for magisk_type, release_url in magisk_dict:
         data = get(link + release_url).json()
         releases += f'{magisk_type}:\n' \
-                f'》 *Manager* - [App v{data["app"]["version"]}]({canary + data["app"]["link"]}) \n' \
-                f'》 *Uninstaller* - [Uninstaller v{data["magisk"]["version"]}]({canary + data["uninstaller"]["link"]}) \n'
+                f'》 *Manager* - [App v{data["app"]["version"]}]({data["app"]["link"]}) \n' \
+                f'》 *Uninstaller* - [Uninstaller v{data["magisk"]["version"]}]({data["uninstaller"]["link"]}) \n'
     msg.reply_text(text=releases,
                    parse_mode=ParseMode.MARKDOWN,
                    disable_web_page_preview=True)
