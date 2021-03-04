@@ -13,14 +13,16 @@ def magisk(bot: Bot, update: Update):
         "<b>Stable</b>\n": "master/stable.json",
         "<b>Beta</b>\n": "master/beta.json",
             }.items()
-    link = ("https://raw.githubusercontent.com/topjohnwu/magisk_files/")
-    releases = "<b><u>Latest Magisk Releases:</u></b>\n"
-
+    link = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
+    output = "<a href='https://topjohnwu.github.io/Magisk/install.html'><b>Guide for New Magisk</b></a>\n"
+    output += "<a href='https://topjohnwu.github.io/Magisk/install.html#custom-recovery'>How to Install New Magisk?</a> \n"
+    output += "\n<b><u>Latest Magisk Releases:</u></b>\n"
     for types, jsons in magisk:
         json_links = get(link + jsons).json()
-        releases += f"\n{types}" \
-                f"<i>App: <a href='{json_links.get('magisk').get('link')}'>{json_links.get('magisk').get('version')}</a></i> \n" \
-                f"<i>Uninstaller: <a href='{json_links.get('uninstaller').get('link')}'> Zip v{json_links.get('magisk').get('version')}</a></i> \n"
+        output += f"\n{types}" \
+        f"<i>App: <a href='{json_links.get('magisk').get('link')}'>{json_links.get('magisk').get('version')}</a></i> \n" \
+        f"<i>Uninstaller: <a href='{json_links.get('uninstaller').get('link')}'> Zip v{json_links.get('magisk').get('version')}</a></i> \n"
+    
     msg.reply_text(text=releases,
                    parse_mode=ParseMode.HTML,
                    disable_web_page_preview=True)
