@@ -1,6 +1,7 @@
 # Feel free to use it, but don't forget to mention credits
 # By DAvinash97
 from requests import get
+from typing import List
 from telegram import Bot, Update, ParseMode
 from telegram.ext import Updater, CommandHandler
 from telegram.ext import run_async
