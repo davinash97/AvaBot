@@ -12,6 +12,7 @@ API = "https://api.github.com/repos/{}/releases/latest"
 
 @run_async
 def github(bot, update, args: List[str]):
+    msg = update.effective_message
     query = " ".join(args)
     if not query:
         msg.reply_text("Try /git {owner}/{repo}")
