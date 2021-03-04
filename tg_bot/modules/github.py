@@ -30,8 +30,7 @@ def github(bot, update, args: List[str]):
             login = downloads.get('uploader').get('login')
             download_url = downloads.get('browser_download_url')
             output += f"<a href='{download_url}'>{assetname}</a>\n"
-        msg.reply_text(chat_id=update.effective_chat.id,
-                        text=output,
+        msg.reply_text(text=output,
                         parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True)
                     
