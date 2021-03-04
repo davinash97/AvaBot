@@ -14,11 +14,11 @@ def magisk(bot: Bot, update: Update):
         "<b>Beta</b>\n": "master/beta.json",
             }.items()
     link = ("https://raw.githubusercontent.com/topjohnwu/magisk_files/")
-    output = "<b><u>Latest Magisk Releases:</u></b>\n"
+    releases = "<b><u>Latest Magisk Releases:</u></b>\n"
 
     for types, jsons in magisk:
         json_links = get(link + jsons).json()
-        output += f"\n{types}" \
+        releases += f"\n{types}" \
                 f"<i>App: <a href='{json_links.get('magisk').get('link')}'>{json_links.get('magisk').get('version')}</a></i> \n" \
                 f"<i>Uninstaller: <a href='{json_links.get('uninstaller').get('link')}'> Zip v{json_links.get('magisk').get('version')}</a></i> \n"
     msg.reply_text(text=releases,
