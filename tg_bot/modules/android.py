@@ -6,10 +6,9 @@ from telegram.ext import Updater, CommandHandler
 from telegram.ext import run_async
 from tg_bot import dispatcher
 
-msg = update.effective_message
-
 @run_async
 def magisk(bot: Bot, update: Update):
+    msg = update.effective_message
     magisk = {
         "<b>Stable</b>\n": "master/stable.json",
         "<b>Beta</b>\n": "master/beta.json",
@@ -30,6 +29,7 @@ def magisk(bot: Bot, update: Update):
 
 @run_async
 def ofox(bot, update, args: List[str]):
+    msg = update.effective_message
     link = 'https://api.orangefox.download/v2/device/{}/releases/'
     query = " ".join(args)
     if not query:
@@ -53,6 +53,7 @@ def ofox(bot, update, args: List[str]):
 
 @run_async
 def listofox(bot: Bot, update: Update):
+    msg = update.effective_message
     link = 'https://api.orangefox.download/v2/device'
     getlink = get(link).json()
     output = "<b>Ofox is currently available for these devices:</b>\n"
