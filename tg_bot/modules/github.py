@@ -22,6 +22,7 @@ def github(bot, update, args: List[str]):
         get_link = get(link).json()
         asset = get_link.get('assets')
         name = get_link.get('name')
+        changelog = get_link.get('body')
         authorname = get_link.get('author').get('login')
         html_url = get_link.get('author').get('html_url')
         output = f"<b><u>Author: <a href='{html_url}'> {authorname.upper()}</a></u></b>\n"
