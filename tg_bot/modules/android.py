@@ -11,15 +11,16 @@ from tg_bot import dispatcher
 def magisk(bot, update):
     msg = update.effective_message
     magisk = {
-        "<b>Stable</b>\n": "master/stable.json",
-        "<b>Beta</b>\n": "master/beta.json",
+        "<b>Stable</b>\n": "stable",
+        "<b>Beta</b>\n": "beta",
+        "<b>Canary</b>n": "canary"
             }.items()
-    link = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
+    link = "https://raw.githubusercontent.com/topjohnwu/magisk-files/master/"
     output = "<a href='https://topjohnwu.github.io/Magisk/install.html'><b>Guide for New Magisk</b></a>\n"
     output += "<a href='https://topjohnwu.github.io/Magisk/install.html#custom-recovery'>How to Install New Magisk?</a> \n"
     output += "\n<b><u>Latest Magisk Releases:</u></b>\n"
     for types, jsons in magisk:
-        json_links = get(link + jsons).json()
+        json_links = get(link + jsons + ".json").json()
         output += f"\n{types}" \
         f"<i>App: <a href='{json_links.get('magisk').get('link')}'>{json_links.get('magisk').get('version')}</a></i> \n" \
         f"<i>Uninstaller: <a href='{json_links.get('uninstaller').get('link')}'> Zip v{json_links.get('magisk').get('version')}</a></i> \n"
