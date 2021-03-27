@@ -11,11 +11,10 @@ from tg_bot import dispatcher
 def magisk(bot, update):
     msg = update.effective_message
     magisk = {
-        "<b>Stable</b>\n": "stable",
-        "<b>Beta</b>\n": "beta",
-        "<b>Canary</b>n": "canary"
+        "<b>Stable</b>\n": "master/stable",
+        "<b>Beta</b>\n": "master/beta"
             }.items()
-    link = "https://raw.githubusercontent.com/topjohnwu/magisk-files/master/"
+    link = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
     output = "<a href='https://topjohnwu.github.io/Magisk/install.html'><b>Guide for New Magisk</b></a>\n"
     output += "<a href='https://topjohnwu.github.io/Magisk/install.html#custom-recovery'>How to Install New Magisk?</a> \n"
     output += "\n<b><u>Latest Magisk Releases:</u></b>\n"
