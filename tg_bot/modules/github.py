@@ -19,28 +19,29 @@ def github(bot, update, args: List[str]):
         return
     else:
         link = API.format(query)
-        get_link = get(link).json()
-        asset = get_link.get('assets')
-        name = get_link.get('name')
-        changelog = get_link.get('body')
-        authorname = get_link.get('author').get('login')
-        html_url = get_link.get('author').get('html_url')
-        tag_name = get_link.get('tag_name')
-        output = f"<b><u>Author</u> : <a href='{html_url}'> <u>{authorname.upper()}</u></a></b>\n\n"
-        output += f"<b><u><a href='https://github.com/{query}'>{name} {tag_name}</a></u></b>\n\n"
-        output += f"<b>Changelog :</b>\n<i>{changelog}</i>\n\n"
-        for downloads in asset:
-            assetname = downloads.get('name')
-            login = downloads.get('uploader').get('login')
-            download_url = downloads.get('browser_download_url')
-            asset_size = (downloads.get('size')/1024)/1024
-            calculation = f"{'{0:.2f}'.format(asset_size)}"
-            download_count = downloads.get('download_count')
-            created_at = downloads.get('created_at')
-            output += f"<b>Name :</b> <a href='{download_url}'>{assetname}</a>\n"
-            output += f"<b>Download Count: {download_count}</b>\n"
-            output += f"<b>Size :</b> {calculation}MB\n"
-            output += f"<b>Created at:</b> {created_at}\n\n"
+        data = get(link).json()
+        nope = 'Not Found'
+        if data.get('message') == nope:
+            msg.reply_text(text=f"Umm... Sorry `{query}` {nope}", parse_mode=ParseMode.MARKDOWN)
+            return
+        else:
+            message = f"<b>Fetched data for {args}:</b>\n\n"
+            message += f"<b><u>{data.get('name')}: {data.get('tag_name')}</u></b>\n\n"
+            message += "\t<b>Downloads:</b>\n\n"
+            for assets in data.get('assets'):
+                assetname = assets.get('name')
+                extension = assetname[-3:]
+                assetlink = assets.get('browser_download_url')
+                assetdown = assets.get('download_count')
+                assetsize = assets.get('size')
+                uploaddate = assets.get('created_at')
+                dateformat = uploaddate[:-10]
+                downinmb = "{0:.2f}".format(assetsize/1048576)
+                message += f"\t\t<b>Name:</b> {assetname}\n"
+                message += f"\t\t<b>Created On:</b> {dateformat}\n"
+                message += f"\t\t<b>Link:</b> <a href='{assetlink}'>{extension.upper()}</a>\n"
+                message += f"\t\t<b>Count</b>: {assetdown}\n"
+                message += f"\t\t<b>Size</b>: {downinmb}MB\n\n"
         msg.reply_text(text=output,
                         parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True)
