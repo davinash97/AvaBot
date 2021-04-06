@@ -42,7 +42,7 @@ def github(bot, update, args: List[str]):
                 message += f"\t\t<b>Link:</b> <a href='{assetlink}'>{extension.upper()}</a>\n"
                 message += f"\t\t<b>Count</b>: {assetdown}\n"
                 message += f"\t\t<b>Size</b>: {downinmb}MB\n\n"
-        msg.reply_text(text=output,
+        msg.reply_text(text=message,
                         parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True)
                     
