@@ -7,7 +7,7 @@ from telegram.ext import Updater, CommandHandler
 from telegram.ext import run_async
 from tg_bot import dispatcher
 
-def magisk(update, context: CallbackContext):
+def magisk(bot, update):
     msg = update.effective_message
     link = 'https://raw.githubusercontent.com/topjohnwu/magisk-files/master/'
     magisk_dict = {
