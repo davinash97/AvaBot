@@ -7,28 +7,27 @@ from telegram.ext import Updater, CommandHandler
 from telegram.ext import run_async
 from tg_bot import dispatcher
 
-@run_async
-def magisk(bot, update):
+def magisk(update, context: CallbackContext):
     msg = update.effective_message
-    magisk = {
-        "<b>Stable</b>\n": "master/stable",
-        "<b>Beta</b>\n": "master/beta"
-            }.items()
-    link = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
-    output = "<a href='https://topjohnwu.github.io/Magisk/install.html'><b>Guide for New Magisk</b></a>\n"
-    output += "<a href='https://topjohnwu.github.io/Magisk/install.html#custom-recovery'>How to Install New Magisk?</a> \n"
-    output += "\n<b><u>Latest Magisk Releases:</u></b>\n"
-    for types, jsons in magisk:
-        json_links = get(link + jsons + ".json").json()
-        output += f"\n{types}" \
-        f"<i>App: <a href='{json_links.get('magisk').get('link')}'>{json_links.get('magisk').get('version')}</a></i> \n" \
-        f"<i>Uninstaller: <a href='{json_links.get('uninstaller').get('link')}'> Zip v{json_links.get('magisk').get('version')}</a></i> \n"
-    
+    link = 'https://raw.githubusercontent.com/topjohnwu/magisk-files/master/'
+    magisk_dict = {
+        '<b>Stable</b>:': 'stable',
+        '\n<b>Beta</b>:': 'beta',
+        '\n<b>Canary</b>:': 'canary',
+    }.items()
+    output = "\n<b>Latest Magisk Releases:</b> \n\n"
+    for types, jsons in magisk_dict:
+        data = get(link + jsons + '.json').json()
+        app = data.get('magisk')
+        applink = app.get('link')
+        appvers = app.get('version')
+        output += f"{types}\n"
+        output += f"\t<i>APK/ZIP: <a href='{applink}'>Magisk</a></i>\n"
+        output += f"\t<i>Version: {appvers}\n</i>"
     msg.reply_text(text=output,
-                   parse_mode=ParseMode.HTML,
-                   disable_web_page_preview=True)
+                    parse_mode=ParseMode.HTML,
+                    disable_web_page_preview=True)
 
-@run_async
 def ofox(bot, update, args: List[str]):
     msg = update.effective_message
     link = 'https://api.orangefox.download/v2/device/{}/releases/'
@@ -73,8 +72,8 @@ __help__ = """
 • `/ofox`, `/fox`, `/orangefox`: fetches latest stable ofox if available for your device.
 • `/ofoxdevices` to check if your devices has ofox officially.
 """
-magisk_handler = CommandHandler(['magisk', 'root', 'su'], magisk)
-ofox_handler = CommandHandler(['ofox', 'fox', 'orangefox'], ofox, pass_args=True)
+magisk_handler = CommandHandler(['magisk', 'root', 'su'], magisk, run_async=True)
+ofox_handler = CommandHandler(['ofox', 'fox', 'orangefox'], ofox, pass_args=True, run_async=True)
 ofoxlist_handler = CommandHandler('ofoxdevices', listofox)
 
 dispatcher.add_handler(magisk_handler)
