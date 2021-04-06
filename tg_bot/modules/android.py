@@ -3,8 +3,7 @@
 from requests import get
 from typing import List
 from telegram import Bot, Update, ParseMode
-from telegram.ext import Updater, CommandHandler
-from telegram.ext import run_async
+from telegram.ext import Updater, CommandHandler, run_async
 from tg_bot import dispatcher
 
 def magisk(bot, update):
@@ -72,8 +71,8 @@ __help__ = """
 • `/ofox`, `/fox`, `/orangefox`: fetches latest stable ofox if available for your device.
 • `/ofoxdevices` to check if your devices has ofox officially.
 """
-magisk_handler = CommandHandler(['magisk', 'root', 'su'], magisk, run_async=True)
-ofox_handler = CommandHandler(['ofox', 'fox', 'orangefox'], ofox, pass_args=True, run_async=True)
+magisk_handler = CommandHandler(['magisk', 'root', 'su'], magisk)
+ofox_handler = CommandHandler(['ofox', 'fox', 'orangefox'], ofox, pass_args=True)
 ofoxlist_handler = CommandHandler('ofoxdevices', listofox)
 
 dispatcher.add_handler(magisk_handler)
