@@ -178,12 +178,11 @@ def clear(bot: Bot, update: Update, args: List[str]):
 def list_notes(bot: Bot, update: Update):
     chat_id = update.effective_chat.id
     note_list = sql.get_all_chat_notes(chat_id)
-
     msg = "*Notes in chat:*\n"
     note_count = 0
     for note in note_list:
         note_count += 1
-        note_name = (f"\t `{note_count}`\``{note.name}`\n")
+        note_name = (f"\t ```{note_count}```. ```{note.name}```\n")
         if len(msg) + len(note_name) > MAX_MESSAGE_LENGTH:
             update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
             msg = ""
