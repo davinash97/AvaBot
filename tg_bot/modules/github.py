@@ -25,7 +25,7 @@ def github(bot, update, args: List[str]):
             msg.reply_text(text=f"Umm... Sorry `{query}` {nope}", parse_mode=ParseMode.MARKDOWN)
             return
         else:
-            message = f"<b>Fetched data for {args}:</b>\n\n"
+            message = f"<b>Fetched data for</b> <code>{args}</code>:\n\n"
             message += f"<b><u>{data.get('name')}: {data.get('tag_name')}</u></b>\n\n"
             message += "\t<b>Downloads:</b>\n\n"
             for assets in data.get('assets'):
