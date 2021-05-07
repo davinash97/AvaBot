@@ -141,10 +141,10 @@ def clear(bot: Bot, update: Update):
         del namespaces[update.message.chat_id]
     send("Cleared locals.", bot, update)
 
-EVAL_HANDLER = CommandHandler(('e', 'ev', 'eva', 'eval'), evaluate, filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
-EXEC_HANDLER = CommandHandler(('x', 'ex', 'exe', 'exec', 'py'), execute, filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
-CLEAR_HANDLER = CommandHandler(('clearlocals'), clear, filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
-SHELL_HANDLER = CommandHandler(('sh','shell'), shellExecute, filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
+EVAL_HANDLER = CommandHandler(('e', 'ev', 'eva', 'eval'), evaluate, filters=CustomFilters.sudo_filter)
+EXEC_HANDLER = CommandHandler(('x', 'ex', 'exe', 'exec', 'py'), execute, filters=CustomFilters.sudo_filter)
+CLEAR_HANDLER = CommandHandler(('clearlocals'), clear, filters=CustomFilters.sudo_filter)
+SHELL_HANDLER = CommandHandler(('sh','shell'), shellExecute, filters=CustomFilters.sudo_filter)
 
 dispatcher.add_handler(EVAL_HANDLER)
 dispatcher.add_handler(EXEC_HANDLER)
