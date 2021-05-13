@@ -39,7 +39,7 @@ def github(bot, update, args: List[str]):
                 downinmb = "{0:.2f}".format(assetsize/1048576)
                 message += f"\t\t<b>Name:</b><a href='{assetlink}'>{assetname}</a>\n"
                 message += f"\t\t<b>Created On:</b> {dateformat}\n"
-                message += f"\t\t<b>Link:</b> <a href='{assetlink}'>{extension.upper()}\n"
+                message += f"\t\t<b>Type:</b> {extension.upper()}\n"
                 message += f"\t\t<b>Count</b>: {assetdown}\n"
                 message += f"\t\t<b>Size</b>: {downinmb}MB\n\n"
         msg.reply_text(text=message,
